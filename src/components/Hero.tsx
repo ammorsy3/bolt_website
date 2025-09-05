@@ -33,8 +33,9 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(800px_500px_at_50%_45%,rgba(59,130,246,0.18),transparent_70%)]" />
 
         {/* Corner glows */}
-        <div className="absolute -top-24 -left-24 w-[32rem] h-[32rem] rounded-full bg-blue-600/25 blur-3xl" />
+        <div className="absolute -top-24 -left-24 w-[32rem] h-[32rem] rounded-full bg-orange-500/25 blur-3xl" />
         <div className="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] rounded-full bg-teal-500/25 blur-3xl" />
+
 
         {/* Inner vignette */}
         <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.5)]" />
