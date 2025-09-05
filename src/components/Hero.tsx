@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle } from 'lucide-react';
 
 export default function Hero() {
@@ -11,7 +12,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-800">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-800 -z-10">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0" style={{
           backgroundImage: `url('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
@@ -21,10 +22,42 @@ export default function Hero() {
         }}></div>
       </div>
 
-      {/* Animated background elements */}
+      {/* Enhanced Animated background elements with aura effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        {/* Radial gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.15),transparent)]" />
+        {/* Grid pattern */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
+        {/* Enhanced aura lights */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl animate-pulse delay-1500"></div>
+        {/* Additional gradient overlays */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-transparent to-teal-500/5"></div>
+      </div>
+
+      {/* Floating particles effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-blue-400/20 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [-20, -100],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 4 + 3,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          />
+        ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
