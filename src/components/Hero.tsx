@@ -38,7 +38,7 @@ export default function Hero() {
 
 
         {/* Inner vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_70%,rgba(0,0,0,0.7)_100%)] pointer-events-none" />
+        <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.5)]" />
 
         {/* Top/bottom edge light */}
         <div className="absolute inset-0 bg-[radial-gradient(1000px_240px_at_50%_-120px,rgba(255,255,255,0.08),transparent),radial-gradient(1000px_240px_at_50%_calc(100%+120px),rgba(255,255,255,0.07),transparent)]" />
