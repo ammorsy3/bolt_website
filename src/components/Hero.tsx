@@ -16,7 +16,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
 
-      {/* -- Edge polish (like the purple version) -------------------------------- */}
+      {/* -- Edge polish (sexy edges like purple version) -------------------------------- */}
       <div className="absolute inset-0 pointer-events-none -z-0">
         {/* Clean grid with edge fade */}
         <div
@@ -32,41 +32,44 @@ export default function Hero() {
         {/* Subtle center glow */}
         <div className="absolute inset-0 bg-[radial-gradient(800px_500px_at_50%_45%,rgba(59,130,246,0.18),transparent_70%)]" />
 
-        {/* Corner glows (kept blue/teal, tightened falloff) */}
+        {/* Corner glows */}
         <div className="absolute -top-24 -left-24 w-[32rem] h-[32rem] rounded-full bg-blue-600/25 blur-3xl" />
         <div className="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] rounded-full bg-teal-500/25 blur-3xl" />
 
-        {/* Inner vignette to make edges look sexy */}
+        {/* Inner vignette */}
         <div className="absolute inset-0 shadow-[inset_0_0_140px_rgba(0,0,0,0.5)]" />
 
-        {/* Soft top/bottom edge light for depth */}
+        {/* Top/bottom edge light */}
         <div className="absolute inset-0 bg-[radial-gradient(1000px_240px_at_50%_-120px,rgba(255,255,255,0.08),transparent),radial-gradient(1000px_240px_at_50%_calc(100%+120px),rgba(255,255,255,0.07),transparent)]" />
       </div>
       {/* ------------------------------------------------------------------------ */}
 
-      {/* Floating particles (unchanged) */}
+      {/* Floating particles (bolder + faster) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400/20 rounded-full"
+            className="absolute rounded-full bg-blue-400/40 shadow-[0_0_6px_rgba(59,130,246,0.6)]"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 3 + 2}px`,  // randomized size 2–5px
+              height: `${Math.random() * 3 + 2}px`,
             }}
             animate={{
-              y: [-20, -100],
+              y: [-30, -140],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 4 + 3,
+              duration: Math.random() * 3 + 2, // faster: 2–5s
               repeat: Infinity,
-              delay: Math.random() * 3,
+              delay: Math.random() * 2,
             }}
           />
         ))}
       </div>
 
+      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
@@ -99,7 +102,7 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* CTA Buttons (kept orange primary) */}
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-slideUp delay-600">
             <a
               href="https://calendly.com/ahmorsy07/ai-booking-demo"
