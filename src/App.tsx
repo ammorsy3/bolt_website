@@ -14,6 +14,31 @@ function App() {
   useEffect(() => {
     const anchors = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
 
+    const smoothScroll = (targetElement: Element, duration = 1000) => {
+      const start = window.scrollY;
+      const end = targetElement.getBoundingClientRect().top + window.scrollY;
+      const distance = end - start;
+      let startTime: number | null = null;
+
+      const easeInOutQuad = (t: number) =>
+        t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+      const animation = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const easedProgress = easeInOutQuad(progress);
+
+        window.scrollTo(0, start + distance * easedProgress);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      };
+
+      requestAnimationFrame(animation);
+    };
+
     const handleClick = (e: Event) => {
       e.preventDefault();
       const target = e.currentTarget as HTMLAnchorElement;
@@ -21,9 +46,7 @@ function App() {
       if (!targetId) return;
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-        });
+        smoothScroll(targetElement, 1500); // 👈 Increase ms for more dramatic effect
       }
     };
 
@@ -31,7 +54,6 @@ function App() {
       anchor.addEventListener('click', handleClick);
     });
 
-    // ✅ Cleanup on unmount
     return () => {
       anchors.forEach(anchor => {
         anchor.removeEventListener('click', handleClick);
