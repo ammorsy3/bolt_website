@@ -13,12 +13,12 @@ import Footer from './components/Footer';
 function App() {
   useEffect(() => {
     // Fine-tune these constants to adjust feel
-    const STIFFNESS    = 0.14; // Higher = snappier
-    const DAMPING      = 0.92; // Higher = less floaty
-    const MAX_VEL      = 4000; // px/s cap
-    const ARROW_STEP   = 80;   // px for ArrowUp/Down
-    const PAGE_STEP_MULT = 0.9; // fraction of viewport for PageUp/PageDown
-    const WHEEL_MULT   = 1.0;  // global wheel sensitivity
+    const STIFFNESS    = 0.14;     // Higher = snappier
+    const DAMPING      = 0.92;     // Higher = less floaty
+    const MAX_VEL      = 4000;     // px/s cap
+    const ARROW_STEP   = 80;       // px for ArrowUp/Down
+    const PAGE_STEP_MULT = 0.9;    // fraction of viewport for PageUp/PageDown
+    const WHEEL_MULT   = 1.0;      // global wheel sensitivity
 
     // Skip custom scrolling for users who prefer reduced motion
     const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -107,13 +107,18 @@ function App() {
       }
     };
 
-    // Handle wheel / trackpad
+    // Handle wheel / trackpad scroll and control speed based on wheel delta (scroll speed)
     const onWheel = (e: WheelEvent) => {
       if (e.ctrlKey) return; // allow pinch zoom
       if (hasScrollableAncestor(e.target as Element)) return;
       e.preventDefault();
+
       const delta = normalizeWheelDelta(e);
-      targetY = clamp(targetY + delta);
+
+      // Adjust the targetY based on how fast the user scrolls:
+      // The faster they scroll, the further the page should scroll
+      targetY = clamp(targetY + delta * (Math.abs(delta) > 150 ? 1.5 : 1));  // Speed scaling
+
       startRAFIfNeeded();
     };
 
@@ -180,29 +185,4 @@ function App() {
 
     // Cleanup on unmount
     return () => {
-      window.removeEventListener('scroll', onNativeScroll);
-      window.removeEventListener('wheel', onWheel as any);
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', onResize);
-      anchors.forEach((a) => a.removeEventListener('click', onAnchorClick));
-      if (rafId != null) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <Hero />
-      <Problems />
-      <Solution />
-      <Features />
-      <HowItWorks />
-      <Testimonials />
-      <About />
-      <CTA />
-      <Footer />
-    </div>
-  );
-}
-
-export default App;
+      window.rem
