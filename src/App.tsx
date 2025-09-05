@@ -46,7 +46,7 @@ function App() {
       if (!targetId) return;
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
-        smoothScroll(targetElement, 1500); // 👈 Increase ms for more dramatic effect
+        smoothScroll(targetElement, 3000); // 👈 Increase ms for more dramatic effect
       }
     };
 
