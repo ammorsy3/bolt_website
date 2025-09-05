@@ -15,7 +15,7 @@ function App() {
     // -----------------------------
     // CONFIG: tweak to change feel
     // -----------------------------
-    const EASE = 0.08; // lower = slower/floatier, higher = snappier
+    const EASE = 0.18; // lower = slower/floatier, higher = snappier
     const ARROW_STEP = 80; // px for ArrowUp/Down
     const PAGE_STEP_MULT = 0.9; // fraction of viewport for PageUp/PageDown
     // -----------------------------
