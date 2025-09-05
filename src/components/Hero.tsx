@@ -14,27 +14,34 @@ export default function Hero() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-800 -z-10">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url('https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1920')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.1
-        }}></div>
       </div>
 
       {/* Enhanced Animated background elements with aura effects */}
       <div className="absolute inset-0">
-        {/* Radial gradient overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.15),transparent)]" />
-        {/* Grid pattern */}
+        {/* Main radial gradient overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_200px,rgba(59,130,246,0.2),transparent)]" />
+        {/* Secondary radial gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_80%_300px,rgba(20,184,166,0.15),transparent)]" />
+        {/* Grid pattern overlay */}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
-        {/* Enhanced aura lights */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-teal-600/10 rounded-full blur-3xl animate-pulse delay-1500"></div>
-        {/* Additional gradient overlays */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/5 via-transparent to-teal-500/5"></div>
+        
+        {/* Large aura lights */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-teal-500/15 rounded-full blur-3xl animate-pulse delay-1500"></div>
+        
+        {/* Medium aura lights */}
+        <div className="absolute top-1/2 left-1/6 w-64 h-64 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-700"></div>
+        <div className="absolute bottom-1/2 right-1/6 w-64 h-64 bg-teal-400/10 rounded-full blur-2xl animate-pulse delay-1200"></div>
+        
+        {/* Small accent lights */}
+        <div className="absolute top-1/5 right-1/5 w-48 h-48 bg-orange-500/8 rounded-full blur-2xl animate-pulse delay-300"></div>
+        <div className="absolute bottom-1/5 left-1/5 w-48 h-48 bg-orange-400/8 rounded-full blur-2xl animate-pulse delay-1800"></div>
+        
+        {/* Gradient overlays for depth */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/8 via-transparent to-teal-500/8"></div>
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-teal-500/6 via-transparent to-blue-500/6"></div>
       </div>
 
       {/* Floating particles effect */}
