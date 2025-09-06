@@ -1,7 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { FileText, DollarSign, Calendar, Zap, Info } from 'lucide-react';
 
-function App() {
+function TermsAndPricing() {
   const items = [
     {
       name: 'Make',
@@ -198,6 +199,16 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/tlnconsultinggroup" element={<TermsAndPricing />} />
+      </Routes>
+    </Router>
   );
 }
 
