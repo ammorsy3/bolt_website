@@ -1,188 +1,204 @@
-import React, { useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Problems from './components/Problems';
-import Solution from './components/Solution';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Testimonials from './components/Testimonials';
-import About from './components/About';
-import CTA from './components/CTA';
-import Footer from './components/Footer';
+import React from 'react';
+import { FileText, DollarSign, Calendar, Zap, Info } from 'lucide-react';
 
 function App() {
-  useEffect(() => {
-    // Fine-tune these constants to adjust feel
-    const STIFFNESS    = 0.14;     // Higher = snappier
-    const DAMPING      = 0.92;     // Higher = less floaty
-    const MAX_VEL      = 4000;     // px/s cap
-    const ARROW_STEP   = 80;       // px for ArrowUp/Down
-    const PAGE_STEP_MULT = 0.9;    // fraction of viewport for PageUp/PageDown
-    const WHEEL_MULT   = 1.0;      // global wheel sensitivity
+  const items = [
+    {
+      name: 'Make',
+      desc: 'Platforms & AI integration',
+      price: 36.38,
+    },
+    {
+      name: 'Anthropic',
+      desc: 'LLM used for email writing',
+      price: 40.0,
+    },
+    {
+      name: 'Perplexity',
+      desc: 'LLM used for lead research & personalisation',
+      price: 40.0,
+    },
+    {
+      name: 'Sales Navigator',
+      desc: 'Lead generation',
+      price: 199.0,
+      reminder: 'Reminder: renews this month. Last date to keep Premium access is 29 September.',
+      highlightYellow: true, // Added flag to highlight yellow
+    },
+    {
+      name: 'Instantly.ai',
+      desc: 'Cold emailing platform - hyper-growth plan',
+      price: 97.0,
+      alreadyPaid: true,
+      strikeThrough: true,
+    },
+    {
+      name: 'Anymail finder',
+      desc: 'Lead enrichment service',
+      price: 199.0,
+      alreadyPaid: true,
+      strikeThrough: true,
+    },
+    {
+      name: 'Email Accounts',
+      desc: 'Needed for ≈1500 emails a day',
+      price: 240.0,
+      notDueYet: true,
+      due: 'Payment due: September 15th only',
+      dueSmall: 'This payment can wait until the specified date',
+    },
+  ];
 
-    // Skip custom scrolling for users who prefer reduced motion
-    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+  const fullTotal = items.reduce((sum, item) => sum + (item.price || 0), 0);
+  const totalDueToday = 116.0;
 
-    let rafId: number | null = null;
-    let currentY = window.scrollY;
-    let targetY  = currentY;
-    let velocity = 0;                 // px/s
-    let lastT    = performance.now(); // ms timestamp
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-slate-50 border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Terms & Pricing</h1>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-lg text-slate-600">From: <span className="font-semibold text-slate-900">BookedByCold</span></p>
+              <p className="text-lg text-slate-600">To: <span className="font-semibold text-slate-900">TLN Consulting Group</span></p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-slate-500">Date: {new Date().toLocaleDateString()}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    const root = document.documentElement;
-    const maxScroll = () => root.scrollHeight - window.innerHeight;
-    const clamp = (v: number) => Math.max(0, Math.min(v, Math.max(0, maxScroll())));
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        {/* Pricing Terms Section */}
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <DollarSign className="w-6 h-6 text-blue-600" />
+            <h2 className="text-2xl font-bold text-slate-900">Pricing Terms</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Month-to-Month */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Calendar className="w-5 h-5 text-blue-600" />
+                <h3 className="text-lg font-semibold text-slate-900">Month-to-Month Contract</h3>
+              </div>
+              <div className="space-y-2">
+                <p className="text-slate-700">
+                  <span className="font-semibold">First Month:</span> 20% commission
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-semibold">Ongoing:</span> 10% per month until cancellation
+                </p>
+              </div>
+            </div>
+            {/* Long-term */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="w-5 h-5 text-blue-600" />
+                <h3 className="text-lg font-semibold text-slate-900">Long-Term Contract</h3>
+              </div>
+              <div className="space-y-2">
+                <p className="text-slate-700">
+                  <span className="font-semibold">Duration:</span> 3-6 months or more
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-semibold">Commission:</span> 15% one-time payment
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    const isTyping = () => {
-      const ae = document.activeElement as HTMLElement | null;
-      if (!ae) return false;
-      const tag = ae.tagName;
-      return tag === 'INPUT' || tag === 'TEXTAREA' || ae.isContentEditable;
-    };
+        {/* Monthly Subscriptions */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <Zap className="w-6 h-6 text-green-600" />
+            <h2 className="text-2xl font-bold text-slate-900">Monthly Subscriptions</h2>
+          </div>
+          <div className="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden">
+            <table className="w-full">
+              <thead className="bg-slate-100">
+                <tr>
+                  <th className="text-left py-4 px-6 font-semibold text-slate-900">Service</th>
+                  <th className="text-right py-4 px-6 font-semibold text-slate-900">Monthly Cost</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {items.map((item) => (
+                  <tr
+                    key={item.name}
+                    className={
+                      (item.alreadyPaid ? 'bg-green-50 border-l-4 border-green-400 ' : '') +
+                      (item.notDueYet ? 'bg-yellow-50 border-l-4 border-yellow-400 ' : '') +
+                      (item.highlightYellow ? 'bg-yellow-50 border-l-4 border-yellow-400 ' : '')
+                    }
+                  >
+                    <td className="py-4 px-6 text-slate-700 align-top">
+                      <div className="flex items-center gap-2">
+                        <span>{item.name}</span>
+                        {item.alreadyPaid && <span className="text-green-600">✓</span>}
+                        {(item.notDueYet || item.highlightYellow) && <span className="text-yellow-600">⚠️</span>}
+                      </div>
+                      <span className="text-sm text-slate-500 block">{item.desc}</span>
+                      {item.alreadyPaid && (
+                        <span className="text-sm text-green-700 font-medium block">Already paid</span>
+                      )}
+                      {item.reminder && (
+                        <span className="text-xs text-slate-500 block italic">{item.reminder}</span>
+                      )}
+                      {item.notDueYet && (
+                        <>
+                          <span className="text-sm text-yellow-700 font-medium block">{item.due}</span>
+                          <span className="text-xs text-yellow-600 block">{item.dueSmall}</span>
+                        </>
+                      )}
+                    </td>
+                    <td className="py-4 px-6 text-right font-semibold text-slate-900 align-top">
+                      {item.strikeThrough ? (
+                        <span className="text-slate-500">
+                          <s>${item.price.toFixed(2)}</s>
+                        </span>
+                      ) : (
+                        <>${item.price.toFixed(2)}</>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-    const hasScrollableAncestor = (el: Element | null) => {
-      while (el && el !== document.body) {
-        const style = window.getComputedStyle(el as Element);
-        const oy = style.overflowY;
-        if (oy === 'auto' || oy === 'scroll' || oy === 'overlay') {
-          const h  = (el as HTMLElement).scrollHeight;
-          const ch = (el as HTMLElement).clientHeight;
-          if (h > ch) return true; // nested scroll container
-        }
-        if ((el as HTMLElement).dataset?.scrollIgnore === 'true') return true;
-        el = el.parentElement;
-      }
-      return false;
-    };
+          {/* Summary */}
+          <div className="flex flex-col items-end pt-4">
+            <div className="text-slate-500 text-lg">
+              <s>Total of all subscriptions: ${fullTotal.toFixed(2)}</s>
+            </div>
+            <div className="text-xl font-bold text-slate-900 mt-1">
+              Total Due Today: ${totalDueToday.toFixed(2)}
+            </div>
+          </div>
+        </div>
 
-    const normalizeWheelDelta = (e: WheelEvent) => {
-      // Convert "lines" to pixels if deltaMode === 1
-      const lineHeight = 24; // px
-      const base = e.deltaMode === 1 ? e.deltaY * lineHeight : e.deltaY;
-      return base * WHEEL_MULT;
-    };
+        {/* Reminder & Footer */}
+        <div className="mt-8 flex items-start gap-2 text-sm text-slate-600">
+          <Info className="w-4 h-4 mt-0.5 text-blue-600" />
+          <p>
+            Please ensure Sales Navigator is settled promptly, and remember the Email Accounts fee isn’t due until 15 September.
+          </p>
+        </div>
+        <div className="mt-12 pt-8 border-t border-slate-200 text-center">
+          <p className="text-sm text-slate-500">
+            This pricing structure is effective immediately and subject to the agreed terms of service.
+          </p>
+          <p className="text-sm text-slate-500 mt-2">
+            For questions or clarifications, please contact BookedByCold directly.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-    const startRAFIfNeeded = () => {
-      if (rafId == null) {
-        lastT = performance.now();
-        rafId = requestAnimationFrame(step);
-      }
-    };
-
-    const step = (now: number) => {
-      // Delta time (seconds) with clamping
-      const dt = Math.max(0.001, Math.min(0.050, (now - lastT) / 1000));
-      lastT = now;
-      // Spring physics parameters
-      const k = STIFFNESS * 1000;
-      const c = (1 - DAMPING) * 1000;
-      const dist  = (targetY - currentY);
-      let accel = k * dist - c * velocity;
-      // Integrate velocity and position
-      velocity = Math.max(-MAX_VEL, Math.min(MAX_VEL, velocity + accel * dt));
-      currentY = currentY + velocity * dt;
-      // Clamp to boundaries
-      const maxY = maxScroll();
-      if (currentY < 0 || currentY > maxY) {
-        currentY = clamp(currentY);
-        velocity = 0;
-      }
-      window.scrollTo(0, Math.round(currentY));
-      // If near target and almost stopped, snap to finish
-      if (Math.abs(targetY - currentY) < 0.5 && Math.abs(velocity) < 5) {
-        window.scrollTo(0, Math.round(targetY));
-        rafId = null;
-        velocity = 0;
-        currentY = targetY;
-        return;
-      }
-      rafId = requestAnimationFrame(step);
-    };
-
-    // Sync with native scroll if user drags scrollbar
-    const onNativeScroll = () => {
-      if (rafId == null) {
-        currentY = targetY = window.scrollY;
-      }
-    };
-
-    // Handle wheel / trackpad scroll and control speed based on wheel delta (scroll speed)
-    const onWheel = (e: WheelEvent) => {
-      if (e.ctrlKey) return; // allow pinch zoom
-      if (hasScrollableAncestor(e.target as Element)) return;
-      e.preventDefault();
-
-      const delta = normalizeWheelDelta(e);
-
-      // Adjust the targetY based on how fast the user scrolls:
-      // The faster they scroll, the further the page should scroll
-      targetY = clamp(targetY + delta * (Math.abs(delta) > 150 ? 1.5 : 1));  // Speed scaling
-
-      startRAFIfNeeded();
-    };
-
-    // Handle keyboard navigation
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (isTyping()) return;
-      let delta = 0;
-      switch (e.key) {
-        case 'ArrowDown':
-          delta = ARROW_STEP;
-          break;
-        case 'ArrowUp':
-          delta = -ARROW_STEP;
-          break;
-        case 'PageDown':
-          delta = window.innerHeight * PAGE_STEP_MULT;
-          break;
-        case 'PageUp':
-          delta = -window.innerHeight * PAGE_STEP_MULT;
-          break;
-        case 'Home':
-          targetY = 0;
-          break;
-        case 'End':
-          targetY = maxScroll();
-          break;
-        case ' ':
-          delta = window.innerHeight * PAGE_STEP_MULT;
-          break;
-        default:
-          return; // ignore other keys
-      }
-      e.preventDefault();
-      if (delta !== 0) targetY = clamp(targetY + delta);
-      startRAFIfNeeded();
-    };
-
-    // Smooth anchor navigation
-    const onAnchorClick = (e: Event) => {
-      const a = e.currentTarget as HTMLAnchorElement;
-      const href = a.getAttribute('href');
-      if (!href || !href.startsWith('#')) return;
-      const el = document.querySelector(href);
-      if (!el) return;
-      e.preventDefault();
-      const y = (el as Element).getBoundingClientRect().top + window.scrollY;
-      targetY = clamp(y);
-      startRAFIfNeeded();
-    };
-
-    // Handle resize: ensure target/position stay in bounds
-    const onResize = () => {
-      targetY = clamp(targetY);
-      currentY = clamp(currentY);
-    };
-
-    window.addEventListener('scroll', onNativeScroll, { passive: true });
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', onResize);
-
-    const anchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
-    anchors.forEach((a) => a.addEventListener('click', onAnchorClick));
-
-    // Cleanup on unmount
-    return () => {
-      window.rem
+export default App;
